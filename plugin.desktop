@@ -1,0 +1,9 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+Name=Saratoga
+Comment=Play saratoga solitaire
+Icon=gtk-icon-name
+X-XFCE-Module=plugin
+X-XFCE-Module-Path=/usr/lib/xfce4/panel/plugins
+X-XFCE-API=2.0
