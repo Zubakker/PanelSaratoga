@@ -486,7 +486,7 @@ gboolean MOTION(GtkWidget *widget, GdkEventMotion *event, gpointer data) {
 void clicked(GtkButton *button, GtkWidget pWindow) {
     if (!SHOWN) {
 	area = gtk_drawing_area_new();
-        p_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+        p_window = gtk_window_new(GTK_WINDOW_POPUP);
         gtk_window_set_title(GTK_WINDOW(p_window), "Create DB");
         gtk_window_set_default_size(GTK_WINDOW(p_window), WINDOW_W, WINDOW_H);
 
@@ -533,27 +533,49 @@ constructor(XfcePanelPlugin *plugin) {
 	MOVING[i] = 52;
     srand(time(NULL));
     SHOWN = 0;
+    //GtkWidget *image;
     GtkWidget *button;
     plugins = plugin;
+    // GtkWidget *window;
+    // GtkWidget *box;
+
 
     new_game();
     
-    button = gtk_button_new_with_label("IM PETR");
-    surface = gdk_window_create_similar_surface(GDK_WINDOW(p_window), 
+    button = gtk_button_new_with_label("♠Q");
+    // gtk_widget_set_size_request(button, 20, 16);
+    gtk_widget_queue_draw(button);
+    // button = gtk_button_new_from_icon_name("♠Q", GTK_ICON_SIZE_BUTTON);
+    // window = gtk_scrolled_window_new(NULL, NULL);
+    // gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(window), 16);
+    // gtk_window_set_default_size(GTK_WINDOW(p_window), 16, 16);
+    // box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    //image = gtk_image_new_from_file("/home/zubakker/G/PanelPlugin/CARD.png");
+    
+    // GdkPixbuf *pixbuf = gtk_image_get_pixbuf(GTK_IMAGE(image));
+    // pixbuf = gdk_pixbuf_scale_simple(pixbuf, 15, 15, GDK_INTERP_BILINEAR);
+    // gtk_image_set_from_pixbuf(GTK_IMAGE(image), pixbuf);
+
+    //gtk_button_set_image(GTK_BUTTON(button), image);
+    //gtk_button_set_image_position(GTK_BUTTON(button), GTK_POS_BOTTOM);
+
+    // gtk_container_add(GTK_CONTAINER(box), button);
+    // gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 10);
+    surface = gdk_window_create_similar_surface(GDK_WINDOW(p_window),
 		    CAIRO_CONTENT_COLOR, WINDOW_W, WINDOW_H);
    
     gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
     g_signal_connect(button, "clicked", G_CALLBACK(clicked), NULL);
     g_signal_connect (G_OBJECT (plugin), "size-changed",
-		      G_CALLBACK (sample_size_changed), NULL);
+                      G_CALLBACK (sample_size_changed), NULL);
 
+    // gtk_container_add(GTK_CONTAINER(window), button);
     gtk_container_add(GTK_CONTAINER(plugin), button);
 
-    while (gtk_events_pending ())
-        gtk_main_iteration ();	
 
 
     gtk_widget_show(button);
+    // gtk_widget_show(window);
     xfce_panel_plugin_set_expand (XFCE_PANEL_PLUGIN(plugin), FALSE); 
 }
 
